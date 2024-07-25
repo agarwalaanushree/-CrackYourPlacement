@@ -1,0 +1,51 @@
+Qn: https://leetcode.com/problems/game-of-life/
+
+class Solution {
+public:
+    void gameOfLife(vector<vector<int>>& board) {
+        int m=board.size();
+        int n=board[0].size();
+        vector<pair<int,int>> temp;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                int livecnt=0;
+                if(i-1>=0 && j-1>=0)
+                livecnt+=board[i-1][j-1];
+                if(i-1>=0 && j+1<n)
+                livecnt+=board[i-1][j+1];
+                if(i+1<m && j+1<n)
+                livecnt+=board[i+1][j+1];
+                if(i+1<m && j-1>=0)
+                livecnt+=board[i+1][j-1];
+                if(i-1>=0 && j<n)
+                livecnt+=board[i-1][j];
+                if(i<m && j-1>=0)
+                livecnt+=board[i][j-1];
+                if(i<m && j+1<n)
+                livecnt+=board[i][j+1];
+                if(i+1<m && j<n)
+                livecnt+=board[i+1][j];
+
+                if(board[i][j]==1)
+                {
+                    if(livecnt<2)
+                    temp.push_back({i,j});
+                    else if(livecnt>3)
+                    temp.push_back({i,j});
+                    
+                }
+                else
+                {
+                    if(livecnt==3)
+                    temp.push_back({i,j});
+                }
+            }
+        }
+        for(auto x:temp)
+        {
+            board[x.first][x.second]^=1;
+        }
+    }
+};
