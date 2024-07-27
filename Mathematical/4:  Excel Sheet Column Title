@@ -1,0 +1,30 @@
+Qn: https://leetcode.com/problems/excel-sheet-column-title/description/
+
+class Solution {
+public:
+vector<string> mp={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T",
+"U","V","W","X","Y","Z"};
+void func(int c,string &ans)
+{
+    if(c<26)
+    {
+        if(c>=0)
+        ans+=mp[c];
+    }
+    else
+    {
+        func(c%26,ans);
+        c=c/26;
+        c--;
+        func(c,ans);
+    }
+}
+    string convertToTitle(int columnNumber) {
+        int c=columnNumber;
+        c--;
+        string ans;
+        func(c,ans);
+        reverse(begin(ans),end(ans));
+        return ans;   
+    }
+};
