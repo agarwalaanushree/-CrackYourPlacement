@@ -1,0 +1,42 @@
+Qn: https://www.geeksforgeeks.org/problems/given-a-linked-list-of-0s-1s-and-2s-sort-it/1
+
+/*
+ 
+  Node is defined as
+  struct Node {
+    int data;
+    struct Node *next;
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+*/
+class Solution
+{
+    public:
+    //Function to sort a linked list of 0s, 1s and 2s.
+    Node* segregate(Node *head) {
+        
+        // Add code here
+        unordered_map<int,int> mp;
+        Node* temp=head;
+        while(temp!=NULL){
+            mp[temp->data]++;
+            temp=temp->next;
+        }
+        int val=0;
+        Node* temp1=head;
+        while(temp1!=NULL){
+            if(mp[val]==0)
+            val++;
+            else{
+                temp1->data=val;
+                mp[val]--;
+                temp1=temp1->next;
+            }
+        }
+        return head;
+    }
+};
