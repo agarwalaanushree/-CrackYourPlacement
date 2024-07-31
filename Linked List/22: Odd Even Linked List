@@ -1,0 +1,51 @@
+Qn: https://leetcode.com/problems/odd-even-linked-list/description/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        ListNode* odd=NULL,*next1=NULL;
+        ListNode* even=NULL,*next2=NULL;
+
+        ListNode* temp=head;
+        int i=1;
+        while(temp){
+            ListNode* node=new ListNode(temp->val);
+            if(i%2==0){
+                if(!even){
+                    even=node;
+                    next2=even;
+                }else{
+                    next2->next=node;
+                    next2=next2->next;
+                }
+            }
+            else{
+                if(!odd){
+                    odd=node;
+                    next1=odd;
+                }else{
+                    next1->next=node;
+                    next1=next1->next;
+                }
+            }
+            i++;
+            temp=temp->next;
+        }
+
+        if(!odd) return even;
+
+        next1->next=even;
+
+        return odd;
+    }
+};
