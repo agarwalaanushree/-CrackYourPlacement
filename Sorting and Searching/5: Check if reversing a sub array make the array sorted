@@ -1,0 +1,31 @@
+Qn: https://www.geeksforgeeks.org/check-reversing-sub-array-make-array-sorted/
+
+void solve(){
+    int n;
+    cin>>n;
+    vector<int> arr(n);
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    vector<int> temp(n);
+    for(int i=0;i<n;i++)
+        temp[i]=arr[i];
+    sort(arr.begin(),arr.end());
+    int st=0,end=0;
+    for(int i=0;i<n;i++){
+        if(arr[i]!=temp[i]){
+            st=i;
+            break;
+        }
+    }
+    
+    for(int i=0;i<n;i++){
+        if(temp[i]!=arr[i])
+            end=i;
+    }
+    reverse(temp.begin()+st,temp.begin()+end+1);
+    if(arr==temp)
+        cout<<true<<endl;
+    else
+        cout<<false<<endl;
+}
