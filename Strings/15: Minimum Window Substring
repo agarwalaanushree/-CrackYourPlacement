@@ -1,0 +1,40 @@
+Qn: https://leetcode.com/problems/minimum-window-substring/description/
+
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        int n=s.size();
+        int m=t.size();
+        if(n<m)
+        return "";
+        vector<int> mp(128,0);
+        int cnt=m;
+        int st=0,minst=0,minlen=INT_MAX;
+
+        for(int i=0;i<m;i++)
+        mp[t[i]]++;
+
+        for(int i=0;i<n;i++)
+        {
+            if(mp[s[i]]-- > 0)
+            cnt--;
+
+            while(cnt==0)
+            {
+                if(i-st+1<minlen)
+                {
+                    minst=st;
+                    minlen=i-st+1;
+                }
+
+                if(mp[s[st++]]++ ==0)
+                cnt++;
+            }
+        }
+
+        if(minlen==INT_MAX)
+        return "";
+        else
+        return s.substr(minst,minlen);
+    }
+};
