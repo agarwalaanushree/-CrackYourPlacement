@@ -1,0 +1,40 @@
+Qn: https://leetcode.com/problems/backspace-string-compare/description/
+
+class Solution {
+public:
+stack<int> func(stack<int> stk,string s)
+{
+    for(int i=0;i<s.size();i++)
+    {
+        if(s[i]!='#')
+        stk.push(s[i]);
+        else
+        {
+            if(!stk.empty())
+            stk.pop();
+        }
+    }
+
+    return stk;
+}
+    bool backspaceCompare(string s, string t) {
+        stack<int> stk;
+        stack<int> s1=func(stk,s);
+        stack<int> s2=func(stk,t);
+
+        if(s1.size()!=s2.size())
+        return false;
+        else
+        {
+            while(!s1.empty() && !s2.empty())
+            {
+                if(s1.top()!=s2.top())
+                return false;
+
+                s1.pop();
+                s2.pop();
+            }
+        }
+        return true;
+    }
+};
