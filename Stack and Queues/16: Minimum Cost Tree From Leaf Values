@@ -1,0 +1,30 @@
+Qn: https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/description/
+
+class Solution {
+public:
+    int mctFromLeafValues(vector<int>& arr) {
+        stack<int> st;
+        int sum=0;
+        for(auto x:arr)
+        {
+            while(!st.empty() && st.top()<=x)
+            {
+                int val=st.top();
+                st.pop();
+                sum+=val* min(st.empty()?INT_MAX:st.top(),x);
+            }
+            st.push(x);
+        }
+
+        int a=st.top();
+        st.pop();
+        while(!st.empty())
+        {
+            int b=st.top();
+            st.pop();
+            sum+=b*min(st.empty()?INT_MAX:st.top(),a);
+            a=b;
+        }
+        return sum;
+    }
+};
