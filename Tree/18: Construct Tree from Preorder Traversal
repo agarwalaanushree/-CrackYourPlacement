@@ -1,0 +1,29 @@
+Qn: https://www.geeksforgeeks.org/problems/construct-tree-from-preorder-traversal/1
+
+struct Node* func(int pre[],char preLN[],int *indx_ptr,int n)
+{
+    int indx=*indx_ptr;
+    
+    if(indx==n)
+    return NULL;
+    
+    struct Node* temp=new Node(pre[indx]);
+    (*indx_ptr)++;
+    
+    if(preLN[indx]=='N')
+    {
+        temp->left=func(pre,preLN,indx_ptr,n);
+        temp->right=func(pre,preLN,indx_ptr,n);
+    }
+    
+    return temp;
+    
+}
+// function should return the root of the new binary tree formed
+struct Node *constructTree(int n, int pre[], char preLN[])
+{
+    // Code here
+    int indx=0;
+    
+    return func(pre,preLN,&indx,n);
+}
