@@ -1,0 +1,27 @@
+Qn: https://leetcode.com/problems/path-sum-iii/description/
+
+
+class Solution {
+public:
+unordered_map<long,int> mp;
+int count=0;
+
+void func(TreeNode* root,int targetSum,long preSum)
+{
+    if(!root)
+    return;
+    preSum+=root->val;
+    if(mp.find(preSum-targetSum)!=mp.end()){
+        count+=mp[preSum-targetSum];
+    }
+    mp[preSum]++;
+    func(root->left,targetSum,preSum);
+    func(root->right,targetSum,preSum);
+    mp[preSum]--;
+}
+    int pathSum(TreeNode* root, int targetSum) {
+        mp[0]=1;
+        func(root,targetSum,0);
+        return count;
+    }
+};
