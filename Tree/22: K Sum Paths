@@ -1,0 +1,29 @@
+Qn: https://www.geeksforgeeks.org/problems/k-sum-paths/1
+
+class Solution {
+  public:
+  unordered_map<int,int> mp;
+  int ans=0;
+  void func(Node* root,int k,int pre)
+  {
+      if(root==NULL)
+      return;
+      
+      pre+=root->data;
+      if(mp.find(pre-k)!=mp.end())
+      {
+          ans+=mp[pre-k];
+      }
+      mp[pre]++;
+      func(root->left,k,pre);
+      func(root->right,k,pre);
+      
+      mp[pre]--;
+  }
+    int sumK(Node *root, int k) {
+        // code here
+        mp[0]=1;
+        func(root,k,0);
+        return ans;
+    }
+};
