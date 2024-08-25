@@ -1,0 +1,49 @@
+Qn: https://www.geeksforgeeks.org/problems/find-the-number-of-islands/0
+
+class Solution {
+  public:
+  
+  bool isSafe(vector<vector<char>>& grid,int r,int c,vector<vector<bool>>& visited)
+  {
+      int row=grid.size();
+      int col=grid[0].size();
+      
+      return (r>=0)&&(r<row)&&(c>=0)&&(c<col)&&(grid[r][c]=='1' && !visited[r][c]);
+  }
+  
+  
+  void dfs(vector<vector<char>>& grid,int r,int c,vector<vector<bool>>& visited)
+  {
+      vector<int> rnbr={-1,-1,-1,0,0,1,1,1};
+      vector<int> cnbr={-1,0,1,-1,1,-1,0,1};
+      visited[r][c]=true;
+      for(int k=0;k<8;k++){
+          int newr=r+rnbr[k];
+          int newc=c+cnbr[k];
+          if(isSafe(grid,newr,newc,visited)){
+              dfs(grid,newr,newc,visited);
+          }
+      }
+  }
+    // Function to find the number of islands.
+    int numIslands(vector<vector<char>>& grid) {
+        // Code here
+        int row=grid.size();
+        int col=grid[0].size();
+        
+        vector<vector<bool>> visited(row,vector<bool>(col,false));
+        int  cnt=0;
+        for(int r=0;r<row;r++)
+        {
+            for(int c=0;c<col;c++)
+            {
+                if(grid[r][c]=='1' && !visited[r][c]){
+                    dfs(grid,r,c,visited);
+                    cnt++;
+                }
+            }
+        }
+        
+        return cnt;
+    }
+};
