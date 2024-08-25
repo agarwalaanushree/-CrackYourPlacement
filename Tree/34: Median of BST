@@ -1,0 +1,31 @@
+Qn: https://www.geeksforgeeks.org/problems/median-of-bst/1
+
+void inorder(struct Node* root,vector<int>& vec)
+{
+    if(root==NULL)
+    return;
+    
+    inorder(root->left,vec);
+    vec.push_back(root->data);
+    inorder(root->right,vec);
+}
+// your task is to complete the Function
+// Function should return median of the BST
+float findMedian(struct Node *root)
+{
+      //Code here
+      vector<int> vec;
+      inorder(root,vec);
+      int n=vec.size();
+      float ans;
+      if(n%2==0)
+      {
+          ans=1.0*(vec[n/2-1]+vec[n/2])/2;
+      }
+      else
+      {
+          ans=vec[n/2];
+      }
+      
+      return ans;
+}
