@@ -1,0 +1,57 @@
+Qn: https://www.geeksforgeeks.org/problems/replace-os-with-xs0052/1
+
+class Solution{
+public:
+void funcFill(vector<vector<char>>& mat,int x,int y,char prev,char newv){
+    int n=mat.size();
+    int m=mat[0].size();
+    if(x<0||x>=n||y<0||y>=m)
+    return;
+    if(mat[x][y]!=prev)
+    return;
+    mat[x][y]=newv;
+    funcFill(mat,x+1,y,prev,newv);
+    funcFill(mat,x-1,y,prev,newv);
+    funcFill(mat,x,y+1,prev,newv);
+    funcFill(mat,x,y-1,prev,newv);
+}
+
+    vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
+    {
+        // code here
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++){
+                if(mat[i][j]=='O')
+                mat[i][j]='-';
+            }
+        }
+        
+        for(int i=0;i<n;i++){
+            if(mat[i][0]=='-')
+            funcFill(mat,i,0,'-','O');
+        }
+        for(int i=0;i<n;i++){
+            if(mat[i][m-1]=='-')
+            funcFill(mat,i,m-1,'-','O');
+        }
+        for(int i=0;i<m;i++){
+            if(mat[0][i]=='-')
+            funcFill(mat,0,i,'-','O');
+        }
+        for(int i=0;i<m;i++){
+            if(mat[n-1][i]=='-')
+            funcFill(mat,n-1,i,'-','O');
+        }
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]=='-')
+                mat[i][j]='X';
+            }
+        }
+        
+        return mat;
+        
+    }
+};
