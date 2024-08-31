@@ -1,0 +1,25 @@
+Qn: https://leetcode.com/problems/longest-repeating-character-replacement/description/
+
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int n=s.size();
+        int ans=0;
+        for(char ch='A';ch<='Z';ch++){
+            int i=0,j=0,cnt=0;
+            while(j<n){
+                if(s[j]!=ch)
+                cnt++;
+                while(cnt>k){
+                    ans=max(ans,j-i);
+                    if(s[i]!=ch)
+                    cnt--;
+                    i++;
+                }
+                j++;
+            }
+            ans=max(ans,j-i);
+        }
+        return ans;
+    }
+};
