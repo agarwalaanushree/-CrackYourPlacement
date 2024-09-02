@@ -1,0 +1,28 @@
+Qn: https://leetcode.com/problems/ugly-number-ii/description/
+
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int> pr={2,3,5};
+        priority_queue<long,vector<long>,greater<long>> ugly;
+        unordered_set<long> visited;
+        ugly.push(1);
+        visited.insert(1);
+
+        long curr;
+        for(int i=0;i<n;i++)
+        {
+            curr=ugly.top();
+            ugly.pop();
+            for(int x:pr){
+                long temp=curr*x;
+                if(visited.find(temp)==visited.end()){
+                    ugly.push(temp);
+                    visited.insert(temp);
+                }
+            }
+        }
+
+        return (int)curr;
+    }
+};
